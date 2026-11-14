@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AlgoIDE – Pseudo-code, C, Python</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png">
+<meta name="theme-color" content="#0f172a">
+<style>
+:root{--bg:#0f172a;--p:#1e293b;--t:#e2e8f0;--m:#94a3b8;--a:#38bdf8;--ok:#4ade80;--er:#f87171;--b:#334155}
+@media(prefers-color-scheme:light){:root{--bg:#f1f5f9;--p:#fff;--t:#0f172a;--m:#475569;--a:#0369a1;--ok:#15803d;--er:#b91c1c;--b:#cbd5e1}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--t);font:15px system-ui,sans-serif;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+header{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px;background:var(--p);border-bottom:1px solid var(--b)}
+h1{font-size:17px;margin:0 6px 0 0}
+select,button{background:var(--bg);color:var(--t);border:1px solid var(--b);border-radius:8px;padding:7px 10px;font:inherit}
+button{cursor:pointer}#run{background:var(--a);color:#fff;border-color:var(--a);font-weight:600}
+main{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px;min-height:0}
+@media(max-width:800px){main{grid-template-columns:1fr;grid-auto-rows:minmax(260px,auto);overflow:auto}}
+section{background:var(--p);border:1px solid var(--b);border-radius:10px;display:flex;flex-direction:column;min-height:0;overflow:auto;padding:8px;gap:6px}
+.ed{display:flex;flex:1;min-height:240px;border:1px solid var(--b);border-radius:8px;overflow:hidden}
+#gut,#code{font:14px/1.5 ui-monospace,Consolas,monospace;margin:0;padding:8px;background:transparent;color:var(--t);border:0;white-space:pre}
+#gut{color:var(--m);text-align:right;overflow:hidden;min-width:38px;user-select:none}
+#code{flex:1;resize:none;outline:0;overflow:auto;tab-size:4}
+#stdin{height:56px;font:14px ui-monospace,monospace;background:var(--bg);color:var(--t);border:1px solid var(--b);border-radius:8px;padding:6px}
+#out{white-space:pre-wrap;font:14px ui-monospace,monospace;min-height:80px;flex:1}
+.err{color:var(--er)}.ok{color:var(--ok)}.dim{color:var(--m)}
+#err{border:1px solid var(--er);border-radius:8px;padding:8px}#err p{margin:6px 0}#err pre{white-space:pre-wrap;color:var(--m);margin:4px 0;font-size:13px}#err a{color:var(--a)}
+#gen pre,#help pre{white-space:pre-wrap;font-size:12px;color:var(--m)}summary{cursor:pointer;color:var(--a)}
+label{font-size:12px;color:var(--m)}
+#drawer{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9;display:flex;justify-content:center;align-items:flex-end}
+#drawer[hidden]{display:none}
+.card{background:var(--p);width:min(720px,100%);max-height:88vh;overflow:auto;border-radius:14px 14px 0 0;padding:12px;display:grid;gap:8px}
+#exl{display:grid;gap:4px}#exl button{text-align:left}#exl h4{margin:8px 0 2px;color:var(--a)}
+[hidden]{display:none!important}
+</style></head><body>
+<header>
+ <h1>⌨️ AlgoIDE</h1>
+ <select id="lang" aria-label="Langage"><option value="p">Pseudo-code</option><option value="c">C</option><option value="y">Python</option></select>
+ <select id="mode" aria-label="Mode"><option value="c">Compilation</option><option value="i">Interprétation</option></select>
+ <button id="run">▶ Exécuter</button><button id="exb">📚 Exercices</button><button id="new">🗑</button><button id="inst" hidden>⬇ Installer</button>
+ <small id="net" class="dim"></small>
+</header>
+<main>
+ <section><div class="ed"><pre id="gut">1</pre><textarea id="code" spellcheck="false" autocapitalize="off" autocorrect="off" wrap="off"></textarea></div>
+  <label for="stdin">Entrée (stdin) : valeurs séparées par espaces / lignes</label><textarea id="stdin"></textarea></section>
+ <section>
+  <div id="out" aria-live="polite"></div><button id="clr" style="align-self:flex-start">Effacer la sortie</button>
+  <div id="err" hidden></div>
+  <details id="gen" hidden><summary>Code généré (étape de traduction)</summary><pre></pre></details>
+  <details><summary>Compilation vs interprétation ?</summary><p class="dim"><b>Compilation</b> : tout le programme est analysé avant l'exécution ; toutes les erreurs de syntaxe sont listées d'un coup, et rien ne s'exécute s'il y en a. <b>Interprétation</b> : exécution ligne à ligne, le programme s'arrête à la première erreur rencontrée (après avoir produit ce qui précède).</p></details>
+  <details><summary>Aide syntaxe</summary><div id="help"></div></details>
+ </section>
+</main>
+<div id="drawer" hidden><div class="card"><button id="xx" style="justify-self:end">✕ Fermer</button><div id="exd"><i class="dim">Choisis un exercice ↓</i></div><div id="exl"></div></div></div>
+<script src="engine.js"></script><script src="exercises.js"></script><script src="app.js"></script>
+</body></html>
